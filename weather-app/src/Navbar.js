@@ -6,12 +6,22 @@ import './App.css';
 
 const Navbar = () => {
     const [city, setCity] = useState("Algiers")
-    console.log(city)
+    
     //fetch localisation with usefetch using API
     //This allows a Web site or app to offer customized results based on the user's location
-    //geo = navigator.geolocation
-    //geo.getCurrentPosition((success, error, [options])
-    //convert it to city name
+    
+    function success(pos) {
+      const latitude  = pos.coords.latitude;
+      const longitude = pos.coords.longitude;
+      console.log(latitude)
+      console.log(longitude)
+    }
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+    navigator.geolocation.getCurrentPosition(success,error);
+    //get the city from the coordinates
+
     //if localisation not fetchable=> five chart Algiers by default
     //give localisation to chart in home
   return (
