@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import './App.css';
+import useFetch from './useFetch'
 
 //rafce
 
@@ -20,8 +21,12 @@ const Navbar = () => {
       console.warn(`ERROR(${err.code}): ${err.message}`);
     }
     navigator.geolocation.getCurrentPosition(success,error);
+    
     //get the city from the coordinates
-
+    //const url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${success.latitude},${success.longitude}&sensor=false`
+    const url = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+success.latitude+","+success.longitude+"&sensor=false"
+  
+   // const {data } = useFetch(url)
     //if localisation not fetchable=> five chart Algiers by default
     //give localisation to chart in home
   return (
