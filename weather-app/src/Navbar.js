@@ -7,25 +7,28 @@ import useFetch from './useFetch'
 const Navbar = () => {
     const [city, setCity] = useState("Algiers")
     
+    const showLocation= (pos)=> {
+      const latitude  = pos.coords.latitude;
+      const longitude = pos.coords.longitude;
+      console.log(latitude)//*******this is printing the value last in console */
+      const url = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=false`
+      console.log(url)
+    }
+    const errorHandler = (err)=> {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
     //fetch localisation  
     function getLocation() {
-      const showLocation= (pos)=> {
-        const latitude  = pos.coords.latitude;
-        const longitude = pos.coords.longitude;
-        console.log(latitude)//*******this is printing the value last in console */
-      }
-      const errorHandler = (err)=> {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-      }
-
       if(navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
+        navigator.geolocation.getCurrentPosition(showLocation, errorHandler);
+        console.log(showLocation.latitude)//this is printed undefined 1st
+        return showLocation.latitude
       } else {
          alert("Sorry, browser does not support geolocation!");
       }
-      console.log(showLocation.latitude)//this is printed undefined 1st
-      return showLocation.latitude
    }
+
    const lat = getLocation()
    console.log(lat)//*******this is printed undefined 2nd in console */
 
